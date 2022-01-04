@@ -1,10 +1,10 @@
 <script setup lang="ts">
-const name = ref('')
+const name = useLocalStorage('GIST_ID', 'f0d203a99a71df04685c8d3040a90fd5')
 
 const router = useRouter()
 const go = () => {
   if (name.value)
-    router.push(`/hi/${encodeURIComponent(name.value)}`)
+    router.push('/dashboard')
 }
 </script>
 
@@ -12,12 +12,9 @@ const go = () => {
   <div>
     <div i-carbon-campsite text-4xl inline-block />
     <p>
-      <a rel="noreferrer" href="https://github.com/antfu/vitesse-lite" target="_blank">
-        Vitesse Lite
+      <a rel="noreferrer" href="https://github.com/action-hong/wakatime-sync" target="_blank">
+        Wakatime Dashboard
       </a>
-    </p>
-    <p>
-      <em text-sm op75>Opinionated Vite Starter Template</em>
     </p>
 
     <div py-4 />
@@ -25,7 +22,7 @@ const go = () => {
     <input
       id="input"
       v-model="name"
-      placeholder="What's your name?"
+      placeholder="What's your gistId?"
       type="text"
       autocomplete="false"
       p="x-4 y-2"
