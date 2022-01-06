@@ -10,7 +10,7 @@ import 'uno.css'
 
 const app = createApp(App)
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/wakatime/'),
   routes,
 })
 app.use(router)

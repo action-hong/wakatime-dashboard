@@ -10,6 +10,7 @@ import { presetAttributify, presetIcons, presetUno } from 'unocss'
 import Unocss from 'unocss/vite'
 
 export default defineConfig({
+  base: '/wakatime/',
   resolve: {
     alias: {
       '~/': `${path.resolve(__dirname, 'src')}/`,
