@@ -17,6 +17,13 @@ export type Summary = {
   editors: SummaryTime[]
   languages: SummaryTime[]
   projects: SummaryTime[]
+  range: {
+    date: string
+    end: string
+    start: string
+    text: string
+    timezone: string
+  }
 }
 
 type SummaryFile = {
@@ -25,7 +32,7 @@ type SummaryFile = {
   type: string
 }
 
-type SummaryKey = keyof Summary
+type SummaryKey = Exclude<keyof Summary, 'range'>
 
 // 时间叠加起来
 export function calcTotal(summaryies: Summary[]): Summary {
@@ -35,14 +42,25 @@ export function calcTotal(summaryies: Summary[]): Summary {
     editors: [],
     languages: [],
     projects: [],
+    range: {
+      date: '',
+      end: '',
+      start: '',
+      text: '',
+      timezone: '',
+    },
   }
-  const keys = Object.keys(result) as Array<SummaryKey>
+  const keys = Object.keys(result).filter(key => key !== 'range') as Array<SummaryKey>
   keys.forEach((key) => {
     summaryies.forEach((summary) => {
       const summaryTime = summary[key]
       summaryTime.forEach((st) => {
         const index = result[key].findIndex(r => r.name === st.name)
-        if (index === -1) { result[key].push(st) }
+        if (index === -1) {
+          result[key].push({
+            ...st,
+          })
+        }
         else {
           result[key][index].total_seconds += st.total_seconds
           result[key][index].hours += st.hours

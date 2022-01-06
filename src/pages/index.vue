@@ -9,7 +9,7 @@ const go = () => {
 </script>
 
 <template>
-  <div>
+  <div text="center">
     <div i-carbon-campsite text-4xl inline-block />
     <p>
       <a rel="noreferrer" href="https://github.com/action-hong/wakatime-sync" target="_blank">

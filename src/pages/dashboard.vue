@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { calcTotal, useWakatime } from '~/hook/useWakatime'
-const count = ref(10)
+import ProjectLine from '~/components/ProjectLine.vue'
+const count = ref(7)
 const {
   summary,
 } = useWakatime(count)
@@ -26,6 +27,9 @@ function formatVal(val: number | string) {
     <h1 class="text-xl">
       <strong>{{ totalTime }}</strong> over the Last {{ count }} Days
     </h1>
+    <project-line
+      :data="summary"
+    />
     <h2>Projects</h2>
     <div
       class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4"
