@@ -85,6 +85,7 @@ export function useWakatime(count: Ref<number>) {
     ([gistId, count]: [string, number]) => {
       // console.log(gistId, count)
       // 更新
+      loading.value = true
       fetch(`https://api.github.com/gists/${gistId}`)
         .then(res => res.json())
         .then((res) => {
