@@ -54,6 +54,9 @@ const series = computed(() => {
 function updateChart() {
   if (myChart && chartRef.value) {
     myChart.setOption({
+      title: {
+        text: props.type,
+      },
       tooltip: {
         trigger: 'axis',
         axisPointer: {

@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { calcTotal, useWakatime } from '~/hook/useWakatime'
 import ProjectLine from '~/components/ProjectLine.vue'
+import Pie from '~/components/Pie.vue'
 const count = ref(7)
 const {
   summary,
 } = useWakatime(count)
 const allSummary = computed(() => calcTotal(summary.value))
 const projects = computed(() => allSummary.value.projects)
+const editors = computed(() => allSummary.value.editors)
+const languages = computed(() => allSummary.value.languages)
 
 // 总的时间
 const totalSeconds = computed(() => projects.value.reduce((acc, project) => acc + project.total_seconds, 0))
@@ -27,13 +30,25 @@ function formatVal(val: number | string) {
     <h1 class="text-xl">
       <strong>{{ totalTime }}</strong> over the Last {{ count }} Days
     </h1>
-    <project-line
-      :data="summary"
-    />
-    <project-line
-      :data="summary"
-      type="categories"
-    />
+    <div
+      class="grid grid-cols-1 md:grid-cols-2"
+    >
+      <project-line
+        :data="summary"
+      />
+      <project-line
+        :data="summary"
+        type="categories"
+      />
+      <pie
+        title="Editors"
+        :data="editors"
+      />
+      <pie
+        title="Languages"
+        :data="languages"
+      />
+    </div>
     <h2>Projects</h2>
     <div
       class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4"
