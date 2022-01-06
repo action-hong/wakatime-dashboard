@@ -30,6 +30,10 @@ function formatVal(val: number | string) {
     <project-line
       :data="summary"
     />
+    <project-line
+      :data="summary"
+      type="categories"
+    />
     <h2>Projects</h2>
     <div
       class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4"

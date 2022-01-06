@@ -10,9 +10,15 @@ const props = defineProps({
     type: Array as PropType<Summary[]>,
     default: () => [],
   },
+  type: {
+    type: String as PropType<'projects' | 'categories'>,
+    default: 'projects',
+  },
 })
 
 // FIXME: 这里使用ref来包含charts实例，就无法显示tooltip了
+// https://www.cnblogs.com/zhanglw456/p/15272452.html
+// https://github.com/apache/echarts/issues?q=vue3+tooltip
 let myChart: ECharts | null = null
 const chartRef = ref<HTMLElement | null>(null)
 
@@ -21,8 +27,8 @@ const series = computed(() => {
   const res: BarSeriesOption[] = []
   for (let i = 0; i < len; i++) {
     const item = props.data[i]
-    for (let j = 0; j < item.projects.length; j++) {
-      const project = item.projects[j]
+    for (let j = 0; j < item[props.type].length; j++) {
+      const project = item[props.type][j]
       const find = res.find(v => v.name === project.name)
       if (find) {
         find.data![i] = project.total_seconds / 3600
